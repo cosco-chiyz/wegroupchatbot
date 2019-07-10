@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -24,7 +24,7 @@ setup(
     description='group chat WeGroupChatBot for Wechat of enterprise 企业微信群机器人接口',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/bonashen/wegroupchatBot',
+    url='https://github.com/cosco-chiyz/wegroupchatbot',
     download_url='https://github.com/bonashen/wegroupchatBot/tarball/' + __version__,
     license='MIT',
     classifiers=[

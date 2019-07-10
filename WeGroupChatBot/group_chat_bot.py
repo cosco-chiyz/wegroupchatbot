@@ -15,7 +15,7 @@ def send(bot_key, msg_type, **body):
         bot_key = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}'.format(key=bot_key)
     r = requests.post(bot_key, json={"msgtype": msg_type, msg_type: body})
     if r.status_code != 200:
-        exception = HTTPError('access bot proxy is error,please check key!', response=r)
+        exception = HTTPError('access WeGroupChatBot proxy is error,please check key!', response=r)
     else:
         response_data = r.json()
         if response_data['errcode'] == 0:

@@ -1,18 +1,18 @@
 WeGroupChatBot
 ====
 
-group chat bot for Wechat of enterprise 企业微信群机器接口
+group chat bot for Wechat of enterprise 企业微信群机器人接口
 
 ### usage:
 
 ```python
 #Init
 
-from WeGroupChatBot import WeGroupChatBot
+from WeGroupChatBot import GroupChatBot
 
 # https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8a6b7936-06b1-4ada-ab66-f6389d78f053
 
-bot = WeGroupChatBot('8a6b7936-06b1-4ada-ab66-f6389d78f053')
+bot = GroupChatBot('8a6b7936-06b1-4ada-ab66-f6389d78f053')
 
 # send text
 

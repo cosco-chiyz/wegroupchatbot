@@ -9,6 +9,7 @@ group chat bot for Wechat of enterprise 企业微信群机器人接口
 #Init
 
 from WeGroupChatBot import GroupChatBot
+import os
 
 # https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8a6b7936-06b1-4ada-ab66-f6389d78f053
 
@@ -36,6 +37,10 @@ bot.send_a_news('Red Alert 2',
                                   '=7ec55f8b6263f624185d3e01b745eb32/caef76094b36acafa207424e75d98d1000e99c99.jpg')
 
                              
+
+#send file 
+
+bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), './tests/2019.png'))
 
 
 ```

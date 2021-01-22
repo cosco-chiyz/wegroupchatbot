@@ -1,6 +1,7 @@
 # coding: utf-8
 import base64
 import hashlib
+import os
 
 import requests
 from requests import HTTPError
@@ -24,6 +25,21 @@ def send(bot_key, msg_type, **body):
     if raise_exception and exception is not None:
         raise exception
     return False
+
+
+def upload_file(bot_key, filepath):
+    if bot_key is None or os.path.exists(filepath) is False:
+        raise ValueError()
+    _, filename = os.path.split(filepath)
+    if not bot_key.startswith('https://'):
+        bot_key = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key={key}&type=file'.format(key=bot_key)
+    r = requests.post(bot_key, files={
+        'media': (filename, open(filepath, 'rb'))
+    })
+    assert r.status_code == 200
+    r_data = r.json()
+    assert r_data['errcode'] == 0, r_data['errmsg']
+    return r_data['media_id']
 
 
 class WeGroupChatBot(object):
@@ -111,3 +127,23 @@ class WeGroupChatBot(object):
         :return:
         """
         return self.send_news({'title': title, 'url': url, 'description': description, 'picurl': picurl})
+
+    def send_file(self, filepath):
+        media_id = upload_file(self.bot_key, filepath)
+        return self.send_media(media_id)
+
+    def send_media(self, media_id):
+        """
+            发送文件
+            消息内容格式如下：
+            {
+                "msgtype": "file",
+                "file": {
+                     "media_id": "3a8asd892asd8asd"
+                }
+            }
+
+        :param media_id: media id,may be upload by upload_file
+        :return:
+        """
+        return send(self.bot_key, msg_type='file', media_id=media_id)

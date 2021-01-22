@@ -1,3 +1,6 @@
+import os
+
+
 def test_send_text(bot):
     assert bot.send_text('hello world!')
 
@@ -25,3 +28,7 @@ def test_send_a_news(bot):
                            'e90008d81e000000055d24a9bb',
                            picurl='https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign'
                                   '=7ec55f8b6263f624185d3e01b745eb32/caef76094b36acafa207424e75d98d1000e99c99.jpg')
+
+
+def test_send_file(bot):
+    assert bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), '2019.png'))

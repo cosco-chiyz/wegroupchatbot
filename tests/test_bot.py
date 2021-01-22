@@ -2,12 +2,11 @@ import os
 
 
 def test_send_text(bot):
-    assert bot.send_text('hello world!')
+    assert bot.send_text('hello world!嗨，你们好！')
+    assert bot.send_text('hello world!嗨，你们好！', '@all')
 
 
 def test_send_image(bot):
-    import os
-
     assert bot.send_image(os.path.join(os.path.abspath(os.path.dirname(__file__)), '2019.png'))
 
 

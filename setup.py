@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -28,10 +28,8 @@ setup(
     download_url='https://github.com/bonashen/wegroupchatBot/tarball/' + __version__,
     license='MIT',
     classifiers=[
-        'Development Status :: 2 - Alpha',
         'Intended Audience :: Developers',
         "License :: OSI Approved :: MIT License",
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
     ],
     keywords='wechat,groupchat,WeGroupChatBot',

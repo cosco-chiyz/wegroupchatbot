@@ -33,9 +33,10 @@ def upload_file(bot_key, filepath):
     _, filename = os.path.split(filepath)
     if not bot_key.startswith('https://'):
         bot_key = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key={key}&type=file'.format(key=bot_key)
-    r = requests.post(bot_key, files={
-        'media': (filename, open(filepath, 'rb'))
-    })
+    with open(filepath, 'rb') as f:
+        r = requests.post(bot_key, files={
+            'media': (filename, f)
+        })
     assert r.status_code == 200
     r_data = r.json()
     assert r_data['errcode'] == 0, r_data['errmsg']
@@ -128,8 +129,16 @@ class WeGroupChatBot(object):
         """
         return self.send_news({'title': title, 'url': url, 'description': description, 'picurl': picurl})
 
+    def upload_file(self, filepath):
+        """上传文件
+
+        :param filepath: 上传文件的路径
+        :return: media_id: 上传后，服务器返回的 media_id
+        """
+        return upload_file(self.bot_key, filepath)
+
     def send_file(self, filepath):
-        media_id = upload_file(self.bot_key, filepath)
+        media_id = self.upload_file(filepath)
         return self.send_media(media_id)
 
     def send_media(self, media_id):

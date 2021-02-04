@@ -1,7 +1,9 @@
 # coding: utf-8
 import base64
 import hashlib
+import inspect
 import os
+from typing import Any, List
 
 import requests
 from requests import HTTPError
@@ -156,3 +158,34 @@ class WeGroupChatBot(object):
         :return:
         """
         return send(self.bot_key, msg_type='file', media_id=media_id)
+
+
+def _make_bot_call_proxy(self, method):
+    def method_proxy(*args, **kwargs):
+        ret = [method(bot, *args, **kwargs) for bot in self._bots]
+        return ret
+
+    return method_proxy
+
+
+class WeGroupChatBots(object):
+    """multi bots batch work."""
+
+    _bots = []
+
+    def __new__(cls, *args, **kwargs) -> Any:
+        self = object.__new__(cls)
+        for name, method in WeGroupChatBot.__dict__.items():
+            if name.startswith('__') or not inspect.isfunction(method):
+                continue
+            setattr(self, name, _make_bot_call_proxy(self, method))
+
+        return self
+
+    def __init__(self, *bot_key: List[str]) -> None:
+        super().__init__()
+        self._bots = []
+
+        for key in bot_key:
+            bot = WeGroupChatBot(key)
+            self._bots.append(bot)

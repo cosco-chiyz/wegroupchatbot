@@ -5,6 +5,7 @@ group chat bot for Wechat of enterprise 企业微信群机器人接口
 
 ### usage:
 
+### GroupChatBot
 ```python
 #Init
 
@@ -43,4 +44,14 @@ bot.send_a_news('Red Alert 2',
 bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), './tests/2019.png'))
 
 
+```
+
+#### Bot groups
+```python
+from WeGroupChatBot import GroupChatBots
+bots= GroupChatBots('a73c9432-24f6-419b-a643-70baae301d17', 'a73c9432-24f1-418b-a643-70baae301d17')
+
+# send text
+
+bots.send_text('hello world!')
 ```

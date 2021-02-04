@@ -31,3 +31,7 @@ def test_send_a_news(bot):
 
 def test_send_file(bot):
     assert bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), '2019.png'))
+
+
+def test_send_text_by_bots(bots):
+    assert bots.send_text('hello world!嗨，你们好！')

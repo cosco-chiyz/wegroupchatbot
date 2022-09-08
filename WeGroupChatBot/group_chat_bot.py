@@ -14,7 +14,7 @@ def send(bot_key, msg_type, **body):
     raise_exception = body.pop('raise_exception', True)
     if bot_key is None or not isinstance(bot_key, string_types) or len(body) == 0:
         raise ValueError()
-    if not bot_key.startswith('https://'):
+    if not (bot_key.startswith('https://') or bot_key.startswith('http://')):
         bot_key = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}'.format(key=bot_key)
     r = requests.post(bot_key, json={"msgtype": msg_type, msg_type: body})
     if r.status_code != 200:
@@ -33,7 +33,7 @@ def upload_file(bot_key, filepath):
     if bot_key is None or os.path.exists(filepath) is False:
         raise ValueError()
     _, filename = os.path.split(filepath)
-    if not bot_key.startswith('https://'):
+    if not (bot_key.startswith('https://') or bot_key.startswith('http://')):
         bot_key = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key={key}&type=file'.format(key=bot_key)
     with open(filepath, 'rb') as f:
         r = requests.post(bot_key, files={

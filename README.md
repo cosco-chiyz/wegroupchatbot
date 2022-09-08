@@ -16,6 +16,9 @@ import os
 
 bot = GroupChatBot('8a6b7936-06b1-4ada-ab66-f6389d78f053')
 
+# or support reverse proxy at version 0.0.6
+bot = GroupChatBot('http://qyapi.weixin.test.com.local/cgi-bin/webhook/send?key=8a6b7936-06b1-4ada-ab66-f6389d78f053')
+
 # send text
 
 bot.send_text('hello world!')
@@ -43,6 +46,9 @@ bot.send_a_news('Red Alert 2',
 
 bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), './tests/2019.png'))
 
+# When used in the reverse proxy, you must specify a specific media upload URL as the key, as shown in the following example
+bot = GroupChatBot('http://qyapi.weixin.test.com.local/cgi-bin/webhook/upload_media?key=8a6b7936-06b1-4ada-ab66-f6389d78f053&type=file')
+bot.send_file(os.path.join(os.path.abspath(os.path.dirname(__file__)), './tests/2019.png'))
 
 ```
 
